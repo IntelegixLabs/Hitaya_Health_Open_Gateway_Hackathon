@@ -88,20 +88,21 @@ Note: For production, always set `RAPIDAPI_KEY` as an environment variable; do n
 
 ```mermaid
 flowchart LR
-  User[Patient / Clinician] -- HTTPS --> WebAPI[Hitaya Flask API]\n(/hitaya/api/v1)
+  User[Patient / Clinician] -- HTTPS --> WebAPI[Hitaya Flask API<br/>(/hitaya/api/v1)]
   subgraph Hitaya Services
-    WebAPI -- ML Inference --> Diseases[Disease Modules]\n(chest_xray, skin_cancer, heart, etc)
-    WebAPI -- Verify Number --> NetworkBLP[Network Blueprint]\n(/network/*)
+    WebAPI -- ML Inference --> Diseases[Disease Modules<br/>(chest_xray, skin_cancer, heart, etc)]
+    WebAPI -- Verify Number --> NetworkBLP[Network Blueprint<br/>(/network/*)]
   end
-  NetworkBLP -- CAMARA Verify --> RapidAPI[Nokia Network-as-Code\n(Open Gateway via RapidAPI)]
+  NetworkBLP -- CAMARA Verify --> RapidAPI[Nokia Network-as-Code<br/>(Open Gateway via RapidAPI)]
   RapidAPI -- Result --> NetworkBLP
   Diseases -- Results --> WebAPI -- JSON --> User
 
-  note right of NetworkBLP: Future: Device Status,\nLocation, QoD integrations
+  NetworkBLP ---|future| FutureNote[Future: Device Status, Location, QoD integrations]
 ```
 
 ### 5.1 Component Notes
 - Network verification is implemented in `api/network/resource/network.py`.
 - Blueprint is registered in `app.py` alongside existing disease routes.
 - Dependencies updated in `requirements.txt` (adds `requests`).
+
 
