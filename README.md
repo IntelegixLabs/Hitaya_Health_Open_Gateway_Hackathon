@@ -84,25 +84,24 @@ Note: For production, always set `RAPIDAPI_KEY` as an environment variable; do n
 <br />
 
 
-## 5. Open Gateway Architecture (Mermaid)
-
-```mermaid
+## 4. Open Gateway Architecture (Mermaid)
 flowchart LR
-  User[Patient / Clinician] -- HTTPS --> WebAPI[Hitaya Flask API<br/>(/hitaya/api/v1)]
+  User[Patient / Clinician] -- HTTPS --> WebAPI[Hitaya Flask API /hitaya/api/v1]
   subgraph Hitaya Services
-    WebAPI -- ML Inference --> Diseases[Disease Modules<br/>(chest_xray, skin_cancer, heart, etc)]
-    WebAPI -- Verify Number --> NetworkBLP[Network Blueprint<br/>(/network/*)]
+    WebAPI -- ML Inference --> Diseases[Disease Modules: chest_xray, skin_cancer, heart]
+    WebAPI -- Verify Number --> NetworkBLP[Network Blueprint /network/*]
   end
-  NetworkBLP -- CAMARA Verify --> RapidAPI[Nokia Network-as-Code<br/>(Open Gateway via RapidAPI)]
+  NetworkBLP -- CAMARA Verify --> RapidAPI[Nokia Network-as-Code - Open Gateway via RapidAPI]
   RapidAPI -- Result --> NetworkBLP
   Diseases -- Results --> WebAPI -- JSON --> User
 
   NetworkBLP ---|future| FutureNote[Future: Device Status, Location, QoD integrations]
-```
 
-### 5.1 Component Notes
+
+### 4.1 Component Notes
 - Network verification is implemented in `api/network/resource/network.py`.
 - Blueprint is registered in `app.py` alongside existing disease routes.
 - Dependencies updated in `requirements.txt` (adds `requests`).
+
 
 
