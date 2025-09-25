@@ -85,6 +85,8 @@ Note: For production, always set `RAPIDAPI_KEY` as an environment variable; do n
 
 
 ## 4. Open Gateway Architecture (Mermaid)
+
+```mermaid
 flowchart LR
   User[Patient / Clinician] -- HTTPS --> WebAPI[Hitaya Flask API /hitaya/api/v1]
   subgraph Hitaya Services
@@ -96,12 +98,14 @@ flowchart LR
   Diseases -- Results --> WebAPI -- JSON --> User
 
   NetworkBLP ---|future| FutureNote[Future: Device Status, Location, QoD integrations]
+```
 
 
 ### 4.1 Component Notes
 - Network verification is implemented in `api/network/resource/network.py`.
 - Blueprint is registered in `app.py` alongside existing disease routes.
 - Dependencies updated in `requirements.txt` (adds `requests`).
+
 
 
 
